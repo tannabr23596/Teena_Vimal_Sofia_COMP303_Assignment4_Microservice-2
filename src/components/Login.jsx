@@ -17,12 +17,13 @@ const Login = () => {
     }
     const handleFormSubmit = (e) => {
         e.preventDefault()
-        axios.post(`http://localhost:8087/candidate/authenticate`,{
-            email:state.email,
-            password:state.password
+        axios.post(`http://localhost:8087/candidate/authenticate/${state.email}/${state.password}`,{
         })
         .then((response)=>{
-            console.log(response.data)
+            console.log(JSON.stringify(response.data.candidateId))
+            console.log(JSON.stringify(response.data.candidateId))
+            localStorage.setItem('candidateId',JSON.stringify(response.data.candidateId))
+            localStorage.setItem('userType',JSON.stringify(response.data.userType))
             navigate('/view')
         })
         .catch((err)=>{
