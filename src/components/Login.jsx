@@ -17,7 +17,10 @@ const Login = () => {
     }
     const handleFormSubmit = (e) => {
         e.preventDefault()
-        axios.post(`http://localhost:8087/candidate/authenticate`,state)
+        axios.post(`http://localhost:8087/candidate/authenticate`,{
+            email:state.email,
+            password:state.password
+        })
         .then((response)=>{
             console.log(response.data)
             navigate('/view')
