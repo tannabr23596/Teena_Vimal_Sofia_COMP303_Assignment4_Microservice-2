@@ -24,7 +24,12 @@ const Login = () => {
             console.log(JSON.stringify(response.data.candidateId))
             localStorage.setItem('candidateId',JSON.stringify(response.data.candidateId))
             localStorage.setItem('userType',JSON.stringify(response.data.userType))
-            navigate('/view')
+            if(localStorage.getItem("userType")==="Admin"){
+                navigate("/adminView")
+            }
+            else{
+                navigate("/view")
+            }
         })
         .catch((err)=>{
             console.log(err)
