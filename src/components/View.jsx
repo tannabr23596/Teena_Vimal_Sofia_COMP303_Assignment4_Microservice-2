@@ -19,7 +19,7 @@ const View = (props) => {
             case 'book-test':
               return <BookTest/>
             case 'history':
-              return <History />
+              return <History/>
             
             default:
               return <div>

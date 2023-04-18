@@ -7,6 +7,13 @@ import BookTest from './components/BookTest'
 import History from './components/History';
 import TestDetails from './components/TestDetails';
 import Reschedule from './components/Reschedule';
+import AdminView from './components/AdminView';
+import AddCertification from './components/AddCertification';
+import EditCertification from './components/EditCertification'
+import AddCenter from './components/AddCenter'
+import ListAllCenter from './components/ListAllCenter'
+import EditCenter from './components/EditCenter';
+import EditCertificationResponse from './components/EditCertificationResponse';
 
 function App() {
   return (
@@ -25,6 +32,14 @@ function App() {
           <Route path='/history' element={<History/>}/>
           <Route path='/testdetails' element={<TestDetails/>}/>
           <Route path='/reschedule' element={<Reschedule/>}/>
+          <Route path='/adminView' element={<AdminView/>}/>
+          <Route path='/addcertification' element={<AddCertification/>}/>
+          <Route path='/editcertification' element={<EditCertification/>}/>
+          <Route path='/addcenter' element={<AddCenter/>}/>
+          <Route path='/listall' element={<ListAllCenter/>}/>
+          <Route path='/editcenter/:centerId' element={<EditCenter/>}/>
+          <Route path='/editcertificate/:certificateId' element={<EditCertificationResponse/>}/>
+          
         </Routes>
       </BrowserRouter>
     </div>
