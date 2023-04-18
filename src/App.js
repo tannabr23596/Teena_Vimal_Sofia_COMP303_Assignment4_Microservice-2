@@ -14,6 +14,8 @@ import AddCenter from './components/AddCenter'
 import ListAllCenter from './components/ListAllCenter'
 import EditCenter from './components/EditCenter';
 import EditCertificationResponse from './components/EditCertificationResponse';
+import PrivateRoutes from './components/PrivateRoutes';
+import PrivateRoutesUser from './components/PrivateRoutesUser';
 
 function App() {
   return (
@@ -27,19 +29,27 @@ function App() {
         <Routes>
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/book' element={<BookTest />} />
-          <Route path='/view' element={<View />} />
-          <Route path='/history' element={<History/>}/>
-          <Route path='/testdetails' element={<TestDetails/>}/>
-          <Route path='/reschedule' element={<Reschedule/>}/>
-          <Route path='/adminView' element={<AdminView/>}/>
-          <Route path='/addcertification' element={<AddCertification/>}/>
-          <Route path='/editcertification' element={<EditCertification/>}/>
-          <Route path='/addcenter' element={<AddCenter/>}/>
-          <Route path='/listall' element={<ListAllCenter/>}/>
-          <Route path='/editcenter/:centerId' element={<EditCenter/>}/>
-          <Route path='/editcertificate/:certificateId' element={<EditCertificationResponse/>}/>
-          
+
+          <Route element={<PrivateRoutesUser />}>
+            <Route path='/book' element={<BookTest />} />
+            <Route path='/view' element={<View />} />
+            <Route path='/history' element={<History />} />
+            <Route path='/testdetails' element={<TestDetails />} />
+            <Route path='/reschedule' element={<Reschedule />} />
+          </Route>
+
+
+          <Route element={<PrivateRoutes />}>
+            <Route path='/adminView' element={<AdminView />} />
+            <Route path='/adminView' element={<AdminView />} />
+            <Route path='/addcertification' element={<AddCertification />} />
+            <Route path='/editcertification' element={<EditCertification />} />
+            <Route path='/addcenter' element={<AddCenter />} />
+            <Route path='/listall' element={<ListAllCenter />} />
+            <Route path='/editcenter/:centerId' element={<EditCenter />} />
+            <Route path='/editcertificate/:certificateId' element={<EditCertificationResponse />} />
+          </Route>
+
         </Routes>
       </BrowserRouter>
     </div>
