@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 const EditCenter = () => {
   const centerId = useParams()
@@ -28,15 +29,15 @@ const EditCenter = () => {
   const handleFormSubmit = (e) => {
       e.preventDefault()
       console.log(state)
-      // axios.post('http://localhost:8087/candidate',state)
-      // .then((response)=>{
-      //     console.log(response.data)
-      //     navigate('/login')
-      // })
-      // .catch((err)=>{
-      //     console.log(err)
-      //     navigate('/register')
-      // })
+      axios.put(`http://localhost:8087/centre/${centerId.centerId}`,state)
+      .then((response)=>{
+          console.log(response.data)
+          navigate('/adminView')
+      })
+      .catch((err)=>{
+          console.log(err)
+          navigate('/adminView')
+      })
   }
   return (
     <div className=" p-5">
@@ -45,8 +46,7 @@ const EditCenter = () => {
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
                     <label htmlFor="exampleFormControlInput1">Center Code</label>
-                    {/* <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Center Code" onChange={handleInputChange} value={state.centerCode} name='centerCode'/> */}
-                    <h2>{state.centerCode}</h2>
+                    {<input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Center Code" onChange={handleInputChange} value={centerId.centerId} disabled />}
                 </div>
 
                 <div className="form-group">

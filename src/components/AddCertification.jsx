@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+
 
 const AddCertification = () => {
 
@@ -26,15 +28,15 @@ const AddCertification = () => {
   const handleFormSubmit = (e) => {
       e.preventDefault()
       console.log(state)
-      // axios.post('http://localhost:8087/candidate',state)
-      // .then((response)=>{
-      //     console.log(response.data)
-      //     navigate('/login')
-      // })
-      // .catch((err)=>{
-      //     console.log(err)
-      //     navigate('/register')
-      // })
+      axios.post('http://localhost:8087/certification',state)
+      .then((response)=>{
+          console.log(response.data)
+          navigate('/adminView')
+      })
+      .catch((err)=>{
+          console.log(err)
+          navigate('/adminView')
+      })
   }
   return (
     <div className=" p-5">

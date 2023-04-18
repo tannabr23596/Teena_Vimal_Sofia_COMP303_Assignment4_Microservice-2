@@ -24,7 +24,8 @@ const Login = () => {
             console.log(JSON.stringify(response.data.candidateId))
             localStorage.setItem('candidateId',JSON.stringify(response.data.candidateId))
             localStorage.setItem('userType',JSON.stringify(response.data.userType))
-            if(localStorage.getItem("userType")==="Admin"){
+            if(JSON.parse(localStorage.getItem("userType"))==="Admin"){
+                console.log("admin hello")
                 navigate("/adminView")
             }
             else{

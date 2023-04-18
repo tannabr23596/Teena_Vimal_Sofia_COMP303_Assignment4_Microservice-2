@@ -2,13 +2,14 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+import axios from 'axios';
 
 const EditCertificationResponse = () => {
   const navigate =   useNavigate()
   const certificateId = useParams()
+  console.log(certificateId);
 
   const [state, setState] = useState({
-      examCode:'',
       certificationName:'',
       format:'',
       duration:'',
@@ -28,15 +29,15 @@ const EditCertificationResponse = () => {
   const handleFormSubmit = (e) => {
       e.preventDefault()
       console.log(state)
-      // axios.post('http://localhost:8087/candidate',state)
-      // .then((response)=>{
-      //     console.log(response.data)
-      //     navigate('/login')
-      // })
-      // .catch((err)=>{
-      //     console.log(err)
-      //     navigate('/register')
-      // })
+      axios.put(`http://localhost:8087/certification/${certificateId.certificateId}`,state)
+      .then((response)=>{
+          console.log(response.data)
+          navigate('/adminView')
+      })
+      .catch((err)=>{
+          console.log(err)
+          navigate('/adminView')
+      })
   }
   return (
     <div className=" p-5">
@@ -45,7 +46,7 @@ const EditCertificationResponse = () => {
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group">
                     <label htmlFor="exampleFormControlInput1">Exam Code</label>
-                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Exam Code" onChange={handleInputChange} value={state.examCode} name='examCode'/>
+                    <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Exam Code" onChange={handleInputChange} value={certificateId.certificateId}  disabled/>
                 </div>
 
                 <div className="form-group">
@@ -78,7 +79,7 @@ const EditCertificationResponse = () => {
                     <input type="text" className="form-control" id="exampleFormControlInput1" placeholder="Fee" onChange={handleInputChange} value={state.fee} name='fee'/>
                 </div>
 
-                <button type='submit' className='btn btn-danger'>Add Certification</button>
+                <button type='submit' className='btn btn-danger'>Edit Certification</button>
             </form>
             
         </div>

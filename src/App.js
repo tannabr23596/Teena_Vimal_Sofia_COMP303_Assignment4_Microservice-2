@@ -32,7 +32,7 @@ function App() {
           <Route path='/history' element={<History/>}/>
           <Route path='/testdetails' element={<TestDetails/>}/>
           <Route path='/reschedule' element={<Reschedule/>}/>
-          <Route path='/adminview' element={<AdminView/>}/>
+          <Route path='/adminView' element={<AdminView/>}/>
           <Route path='/addcertification' element={<AddCertification/>}/>
           <Route path='/editcertification' element={<EditCertification/>}/>
           <Route path='/addcenter' element={<AddCenter/>}/>

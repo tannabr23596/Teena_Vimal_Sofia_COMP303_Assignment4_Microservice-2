@@ -7,24 +7,31 @@ const ListAllCenter = () => {
   const [state,setState]=useState([])
 
   useEffect(()=>{
-    axios.get(``)
+    axios.get(`http://localhost:8087/centre`)
     .then((response)=>{
+      //console.log(response.data)
       setState(response.data)
+      console.log(state)
     })
     .catch((err)=>{
       console.log(err)
     })
-  },[state])
+  },[])
 
   const handleDeleteCenter=(id)=>{
     console.log("handle delete center clicked")
-    setState()
+    axios.delete(`http://localhost:8087/centre/${id}`)
+     .then((response)=>{
+       console.log(response.data)
+       setState(response.data)
+     })
   }
 
   return (
     <div className=" p-5">
-        <div className="col-md-6 mt-2 mx-auto bg bg-light p-5 border border-danger  border-width-5 text-dark">
+        <div className="col-md-9 mt-2 mx-auto bg bg-light p-5 border border-danger  border-width-5 text-dark">
             <h3>List All Centers</h3>
+            {state.length===0 && <h1>No Centres</h1>}
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -41,7 +48,8 @@ const ListAllCenter = () => {
 
 
                 <tbody>
-                  {state.map((s)=>{
+                  {state.map((s,key)=>{
+                    return(
                     <tr >
                         <th scope="row">1</th>
                         <td><a href='#' className='text-dark'>{s.centerCode}</a></td>
@@ -50,8 +58,8 @@ const ListAllCenter = () => {
                         <td>{s.phone}</td>
                         <td>{s.website}</td>
                         <td><Link className='btn btn-primary text-white' to={`/editcenter/${s.centerCode}`}>Edit</Link></td>
-                        <td><button className='btn btn-danger' onClick={handleDeleteCenter()}>Delete</button></td>
-                    </tr>
+                        { <td><button className='btn btn-danger' onClick={()=>handleDeleteCenter(s.centerCode)}>Delete</button></td> }
+                    </tr>)
                  })}    
                 </tbody>
             </table>

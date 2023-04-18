@@ -2,30 +2,42 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
+
 
 const EditCertification = () => {
     const [state,setState]=useState([])
+    const navigate =   useNavigate()
+
 
     useEffect(()=>{
-      axios.get(``)
+      axios.get(`http://localhost:8087/certification`)
       .then((response)=>{
+        console.log('response.data:',response.data)
         setState(response.data)
+       
       })
       .catch((err)=>{
         console.log(err)
       })
-    },[state])
-  
-    const handleDeleteCenter=(id)=>{
+    },[])
+
+    console.log(state)
+
+    const handleDeleteCertification=(id)=>{
       console.log("handle delete center clicked")
-      setState()
+     axios.delete(`http://localhost:8087/certification/${id}`)
+      .then((response)=>{
+        console.log(response.data)
+        setState(response.data)
+      })
     }
   
     return (
       <div className=" p-5">
           <div className="col-md-9 mt-2 mx-auto bg bg-light p-5 border border-danger  border-width-5 text-dark">
               <h3>Edit Certification</h3>
+              {state.length===0 && <h1>No Certifications</h1>}
               <table class="table table-striped">
                   <thead>
                       <tr>
@@ -42,12 +54,13 @@ const EditCertification = () => {
                       </tr>
                   </thead>
   
-  
+   
                   <tbody>
-                    {state.map((s)=>{
+                    {state.map((s,key)=>{
+                      return(
                       <tr >
                           <th scope="row">1</th>
-                          <td><a href='#' className='text-dark'>{s.examCode}</a></td>
+                          { <td><a href='#' className='text-dark'>{s.examCode}</a></td> }
                           <td>{s.certificationName}</td>
                           <td>{s.format}</td>
                           <td>{s.duration}</td>
@@ -55,9 +68,9 @@ const EditCertification = () => {
                           <td>{s.passingScore}</td>
                           <td>{s.fee}</td>
                           <td><Link className='btn btn-primary text-white' to={`/editcertificate/${s.examCode}`}>Edit</Link></td>
-                          <td><button className='btn btn-danger' onClick={handleDeleteCenter()}>Delete</button></td>
-                      </tr>
-                   })}    
+                          { <td><button className='btn btn-danger' onClick={() =>handleDeleteCertification(s.examCode)}>Delete</button></td> }
+                      </tr>)
+                   })}     
                   </tbody>
               </table>
           </div>
