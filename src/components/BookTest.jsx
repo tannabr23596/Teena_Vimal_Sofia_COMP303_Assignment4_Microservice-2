@@ -72,10 +72,18 @@ useEffect(() => {
   
   const handleFormSubmit = (e) => {
     e.preventDefault()
-        axios.post('http://localhost:8087/test',state)
+        axios.post('http://localhost:8087/test/booking',state)
         .then((response)=>{
             console.log(response.data)
-            navigate('/login')
+            if(response.data === 'Successfull'){
+
+              navigate('/login')
+              alert('Test Date booked successfully')
+            }
+            else {
+              navigate('/view')
+              alert('Test Date is already booked')
+            }
         })
         .catch((err)=>{
             console.log(err)
