@@ -26,7 +26,7 @@ const BookTest = () => {
   };
 
 
-  useEffect(() => {
+useEffect(() => {
     const fetchData = async () => {
       axios.get(apiUrl)
         .then(result => {
@@ -35,12 +35,11 @@ const BookTest = () => {
             
             console.log('data in if:', result.data )
             setData(result.data);
-            setShowLoading(false);
-         
+            setShowLoading(false); 
         }).catch((error) => {
           console.log('error in fetchData:', error)
-
         });
+       
       };  
     fetchData();
 }, []);
@@ -59,6 +58,8 @@ useEffect(() => {
   };
   fetchCenters();
 }, []);
+
+
   const [time, setTime] = useState(0);
   const handleInputChange=(e)=>{
        
@@ -71,14 +72,22 @@ useEffect(() => {
   
   const handleFormSubmit = (e) => {
     e.preventDefault()
-        axios.post('http://localhost:8087/test',state)
+        axios.post('http://localhost:8087/test/booking',state)
         .then((response)=>{
             console.log(response.data)
-            navigate('/view')
+            if(response.data === 'Successfull'){
+
+              navigate('/login')
+              alert('Test Date booked successfully')
+            }
+            else {
+              navigate('/view')
+              alert('Test Date is already booked')
+            }
         })
         .catch((err)=>{
             console.log(err)
-            navigate('/view')
+            navigate('/login')
         })
  
   }
@@ -92,7 +101,7 @@ useEffect(() => {
             <label for="exampleFormControlInput1">Test Centre Name</label>
             <select class="form-control" id="exampleFormControlSelect1" name="centreName" onChange={handleInputChange} value={state.centreName}>
               <option>Select centre name</option>
-              {data.map((centre, index) => (
+              {center.map((centre, index) => (
                 <option key={index}>{centre.centerName}</option>
               ))}
             </select>
@@ -118,7 +127,7 @@ useEffect(() => {
 
           <div class="form-group">
             <label for="exampleFormControlInput1">Certification</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="certification" onChange={handleInputChange} value={state.certificationName}>
+            <select class="form-control" id="exampleFormControlSelect1" name="certificationName" onChange={handleInputChange} value={state.certificationName}>
               <option>Select certification</option>
               {data.map((cert, index) => (
                 <option key={index}>{cert.certificationName}</option>
